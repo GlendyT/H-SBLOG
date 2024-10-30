@@ -3,7 +3,7 @@
 import { ThemeContext } from "@/context/ThemeContext";
 import { useContext, useEffect, useState } from "react";
 
-export const ThemeProvider = ({ children }) => {
+ const ThemeProvider = ({ children }) => {
   const { theme } = useContext(ThemeContext);
   const [mounted, setMounted] = useState(false);
 
@@ -15,3 +15,4 @@ export const ThemeProvider = ({ children }) => {
     return <div className={theme}>{children}</div>;
   }
 };
+export default ThemeProvider
