@@ -2,27 +2,19 @@ import { getAuthSessions } from "@/utils/auth";
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
+//GET ALL COMMENTS of a post
 export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
+  const postSlug = searchParams.get("postSlug");
 
-  const page = searchParams.get("page");
-  const cat = searchParams.get("cat");
-  const POST_PER_PAGE = 2;
-
-  const query = {
-    take: POST_PER_PAGE,
-    skip: POST_PER_PAGE * (page - 1),
-    where: {
-      ...(cat && { catSlug: cat }),
-    },
-  };
   try {
-    const [posts, count] = await prisma.$transaction([
-      prisma.post.findMany(query),
-      prisma.post.count({ where: query.where }),
-    ]);
-
-    return new NextResponse(JSON.stringify({ posts, count }, { status: 200 }));
+    const comments = await prisma.comment.findMany({
+      where: {
+        ...(postSlug && { postSlug }),
+      },
+      include: { user: true },
+    });
+    return new NextResponse(JSON.stringify(comments, { status: 200 }));
   } catch (error) {
     console.log(error);
     return new NextResponse(
@@ -31,11 +23,11 @@ export const GET = async (req) => {
   }
 };
 
-//CREATE A POST
+//CREATE A COMMENT
 export const POST = async (req) => {
-  const session = await getAuthSessions();
+  const sessions = await getAuthSessions();
 
-  if (!session) {
+  if (!sessions) {
     return new NextResponse(
       JSON.stringify({ message: "Not Authenticated!" }, { status: 401 })
     );
@@ -43,10 +35,10 @@ export const POST = async (req) => {
 
   try {
     const body = await req.json();
-    const post = await prisma.post.create({
-      data: { ...body, userEmail: session.user.email },
+    const comment = await prisma.comment.create({
+      data: { ...body, userEmail: sessions.user.email },
     });
-    return new NextResponse(JSON.stringify(post, { status: 200 }));
+    return new NextResponse(JSON.stringify(comment, { status: 200 }));
   } catch (error) {
     console.log(error);
     return new NextResponse(
@@ -54,4 +46,3 @@ export const POST = async (req) => {
     );
   }
 };
-

@@ -36,6 +36,7 @@
     border: none;
     outline: none;
     background-color: transparent;
+    color: var(--textColor);
 }
 .input::placeholder{
     color: #b3b3b1;
