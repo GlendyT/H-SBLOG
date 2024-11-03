@@ -1,0 +1,39 @@
+name: Next.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment with Yarn
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18" # Specify Node.js version
+          cache: "yarn"
+
+      # Install dependencies using Yarn with environment variables
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          FIREBASE: ${{ secrets.DATABASE_NAME }}
+
+      # Build the Next.js application with environment variables
+      - name: Build Next.js app
+        run: yarn build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          FIREBASE: ${{ secrets.DATABASE_NAME }}
