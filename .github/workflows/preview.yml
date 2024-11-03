@@ -1,0 +1,33 @@
+name: Next.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js environment with Yarn
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Specify Node.js version
+          cache: 'yarn'
+
+      # Install dependencies using Yarn
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # Build the Next.js application
+      - name: Build Next.js app
+        run: yarn build
