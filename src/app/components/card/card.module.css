@@ -25,11 +25,12 @@
 .category {
   color: crimson;
   font-weight: 500;
+  text-transform: capitalize;
 }
 .desc{
     font-size: 18px;
     font-weight: 300;
-    color: var(--softTextColor);
+    color: var(--textColor);
 }
 .link{
     border-bottom: 1px solid crimson;
