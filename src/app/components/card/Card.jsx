@@ -6,7 +6,9 @@ export const Card = ({ key, item }) => {
   return (
     <div className={styles.container} key={key}>
       <div className={styles.imageContainer}>
-        {item.img && <Image src={item.img} alt="" fill className={item.img} />}
+        {item.img && (
+          <Image src={item.img} alt="" fill sizes="" className={item.image} />
+        )}
       </div>
       <div className={styles.textContainer}>
         <div className={styles.detail}>
@@ -18,7 +20,7 @@ export const Card = ({ key, item }) => {
         <Link href={`/posts/${item.slug}`}>
           <h1>{item.title}</h1>
         </Link>
-        <p className={styles.desc}>{item.desc.substring(0, 10)}</p>
+        <p className={styles.desc}>{item.desc.substring(0, 100)}</p>
         <Link href={`/posts/${item.slug}`} className={styles.desc}>
           Read More
         </Link>
