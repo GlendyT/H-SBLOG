@@ -1,10 +1,8 @@
 import Image from "next/image";
 import styles from "./singlePage.module.css";
-import { Menu } from "../../components/menu/Menu";
-import Comments from "../../components/comments/Comments";
 
 const getData = async (slug) => {
-  const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`, {
     cache: "no-store",
   });
 
@@ -28,7 +26,7 @@ const SinglePage = async ({ params }) => {
               {data?.user?.image && (
                 <Image
                   src={data.user.image}
-                  alt=""
+                  alt="User Avatar"
                   fill
                   className={styles.avatar}
                 />
@@ -42,28 +40,44 @@ const SinglePage = async ({ params }) => {
             </div>
           </div>
         </div>
-        <div className={styles.imageContainer}>
-          {data?.img && (
-            <Image
-              src={data.img}
-              alt=""
-              fill
-              className={styles.image}
-            />
-          )}
-        </div>
       </div>
-      <div className={styles.content}>
-        <div className={styles.post}>
-          <div
-            className={styles.description}
-            dangerouslySetInnerHTML={{ __html: data?.desc }}
-          />
-          {/* <div className={styles.comment}>
-            <Comments postSlug={slug} />
-          </div> */}
+      <div className={styles.paragraph}>
+        <div className={styles.imageContainer}>
+          {Array.isArray(data?.img) &&
+            data.img.map((image, id) => (
+              <div key={id} className={styles.singleImageWrapper}>
+                <Image
+                  src={image}
+                  alt={`Image ${id + 1}`}
+                  width={400}
+                  height={200}
+                  className={styles.image}
+                />
+              </div>
+            ))}
         </div>
-        {/* <Menu /> */}
+        <div className={styles.content}>
+          <div className={styles.post}>
+            <div
+              className={styles.description}
+              dangerouslySetInnerHTML={{ __html: data?.desc }}
+            />
+          </div>
+        </div>
+        <div className={styles.imageContainer}>
+          {Array.isArray(data?.img) &&
+            data.img.map((image, id) => (
+              <div key={id} className={styles.singleImageWrapper}>
+                <Image
+                  src={image}
+                  alt={`Image ${id + 1}`}
+                  width={400}
+                  height={200}
+                  className={styles.image}
+                />
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );

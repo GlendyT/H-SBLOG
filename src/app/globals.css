@@ -3,6 +3,7 @@
   --textColor: black;
   --softBg: #f0f0f0;
   --softTextColor: #626262;
+
 }
 
 * {
@@ -25,12 +26,16 @@ a {
   --textColor: #ddd;
   --softBg: #1f273a;
   --softTexctCOLOR: #a6a6a6;
+  --textColorHover: #c1097b;
+  --bgnavbarhover: rgba(11, 8, 26, 0.9);
 }
 .light {
   --bg: white;
   --textColor: black;
   --softBg: #f0f0f0;
   --softTextColor: #626262;
+  --textColorHover: #690442;
+  --bgnavbarhover: rgba(255, 255, 255, 0.9);
 }
 
 .container {
@@ -39,11 +44,8 @@ a {
   color: var(--textColor);
 }
 .wrapper {
-  max-width: 1536px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 80px;
-  padding-right: 80px;
 }
 
 @media screen and (max-width: 1536px) {

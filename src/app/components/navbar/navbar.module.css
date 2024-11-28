@@ -1,9 +1,22 @@
 .container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 80px;
+  padding-left: 40px;
+  padding-right: 40px;
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+  z-index: 1000;
+}
 
+.scrolled {
+  backdrop-filter: blur(10px); /* Add blur effect */
+  background-color: var(--bgnavbarhover); /* Slightly less transparent */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
 
 .social {
@@ -14,14 +27,13 @@
 
 .logo {
   flex: 1;
-  text-align: center;
+  text-align: start;
   font-size: 36px;
   font-weight: bold;
 }
 
 .links {
   display: flex;
-  align-items: end;
   justify-content: flex-end;
   gap: 20px;
   flex: 1;
@@ -52,6 +64,7 @@
     font-size: 24px;
   }
 }
+
 @media screen and (max-width: 640px) {
   .links {
     justify-content: flex-end;

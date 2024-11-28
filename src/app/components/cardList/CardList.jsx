@@ -4,7 +4,7 @@ import { Card } from "../card/Card";
 
 const getData = async (page, cat) => {
   const res = await fetch(
-    `http://localhost:3000/api/posts?page=${page}&cat=${cat || ""}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/posts?page=${page}&cat=${cat || ""}`,
     {
       cache: "no-store",
     }
@@ -25,13 +25,13 @@ export const CardList = async ({ page, cat }) => {
   const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
   return (
     <div className={styles.container}>
-      <h1>Recent post</h1>
       <div className={styles.posts}>
-        {posts?.map((item) => (
-          <Card key={item._id} item={item} />
+        {posts.map((post) => (
+          <Card key={post.id} item={post} />
         ))}
       </div>
       <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />
     </div>
   );
 };
+
