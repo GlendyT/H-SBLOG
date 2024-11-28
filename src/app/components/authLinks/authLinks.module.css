@@ -4,6 +4,9 @@
   color: white;
   padding: 4px 10px;
 }
+.link:hover{
+  background-color: rgb(91, 82, 82);
+}
 .burger {
   width: 20px;
   height: 16px;

@@ -1,26 +1,47 @@
-import Image from "next/image";
 import styles from "./featured.module.css";
-export const Featured = () => {
+
+const getData = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/about`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed");
+  }
+  return res.json();
+};
+
+export const Featured = async () => {
+  const data = await getData();
+
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>
-        <b>Hugo & Simmone</b> <span>stories around the world</span>
-      </h1>
-      <div className={styles.post}>
-        <div className={styles.imgContainer}>
-          <Image src="/p1.jpeg" alt="" fill className={styles.image} />
-        </div>
-        <div className={styles.textContainer}>
-          <h1 className={styles.textTitle}>
-            Knowing the world, through our eyes
-          </h1>
-          <p className={styles.postDesc}>
-            {" "}
-            For the last few years we have travel the world, knowing beautiful
-            places, with a lot of culture and kind people
-          </p>
-        </div>
-      </div>
-    </div>
+    <>
+      {data?.map((item) => {
+        const { images, title, content, id } = item;
+
+        return (
+          <div key={id} className={styles.container}                 style={{
+            backgroundImage: `url(${images[1]})`,
+            backgroundSize: "cover",
+          }}>
+            <div className={styles.overlay}></div>
+            <div className={styles.title}>
+              <h1
+                className={styles.title1}
+                style={{
+                  backgroundImage: `url(${images[0]})`,
+                  backgroundSize: "cover",
+                  backgroundPositionY: "center",
+                  backgroundClip: "text",
+                }}
+              >
+                {title}
+              </h1>{" "}
+              <span>{content}</span>
+            </div>
+          </div>
+        );
+      })}
+    </>
   );
 };

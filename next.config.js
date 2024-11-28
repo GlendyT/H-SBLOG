@@ -5,6 +5,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "firebasestorage.googleapis.com",
       "i.scdn.co",
+      "viajes.nationalgeographic.com.es"
     ],
   },
 };

@@ -2,7 +2,19 @@ import Image from "next/image";
 import styles from "./about.module.css";
 import about from "../../../public/travel.png";
 
-const About = () => {
+const getData = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/about`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed");
+  }
+  return res.json();
+};
+
+const About = async () => {
+  const data = await getData();
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>About Us</h1>

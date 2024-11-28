@@ -102,7 +102,7 @@ model Post {
   slug      String    @unique
   title     String
   desc      String
-  img       String?
+  img       String[]
   views     Int       @default(0)
   catSlug   String
   cat       Category  @relation(fields: [catSlug], references: [slug])
@@ -119,4 +119,12 @@ model Comment {
   user      User     @relation(fields: [userEmail], references: [email])
   postSlug  String
   post      Post     @relation(fields: [postSlug], references: [slug])
+}
+
+model About {
+  id        String   @id @default(cuid()) @map("_id")
+  title     String
+  content   String
+  images    String[] // Array to store image URLs
+  updatedAt DateTime @updatedAt // Automatically updated on record modification
 }

@@ -3,7 +3,7 @@ import styles from "./categoryList.module.css";
 
 
 const getData = async () => {
-    const res = await fetch("http://localhost:3000/api/categories", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
       cache: "no-store",
     });
   
@@ -31,3 +31,5 @@ const CategoryItems = async () => {
 };
 
 export default CategoryItems;
+
+

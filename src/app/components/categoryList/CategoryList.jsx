@@ -3,9 +3,10 @@ import styles from "./categoryList.module.css";
 import Image from "next/image";
 
  const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/categories", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
     cache: "no-store",
   });
+
 
   if (!res.ok) {
     throw new Error("Failed");
@@ -18,6 +19,7 @@ export const CategoryList = async () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Continents</h1>
+      <h2 className={styles.subtitle}>Click every box to see the stories behind</h2>
       <div className={styles.categories}>
         {data?.map((item) => (
           <Link
@@ -29,8 +31,8 @@ export const CategoryList = async () => {
               <Image
                 src={item.img}
                 alt=""
-                width={32}
-                height={32}
+                width={40}
+                height={40}
                 className={styles.image}
               />
             )}
@@ -42,3 +44,4 @@ export const CategoryList = async () => {
     </div>
   );
 };
+
